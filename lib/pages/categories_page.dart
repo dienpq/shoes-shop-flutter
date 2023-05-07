@@ -1,3 +1,4 @@
+import 'package:app_shoes__shop/models/category_model.dart';
 import 'package:app_shoes__shop/pages/category_items_page.dart';
 import 'package:app_shoes__shop/pages/components/banner_slider.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
@@ -61,12 +62,26 @@ class _CategoriesPageState extends State<CategoriesPage> {
         ),
         BannerSlider(imgList: imgListBannerCategory),
         const SizedBox(height: 35),
-        getCategoryListVertical(size),
+        FutureBuilder<List<CategoryModel>>(
+          future: fetchCategories(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final categoryList = snapshot.data!;
+
+              // Hiển thị danh sách categoryList ở đây
+              return getCategoryListVertical(size, categoryList);
+            } else if (snapshot.hasError) {
+              return const Text('Failed to fetch categories');
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
       ],
     );
   }
 
-  Widget getCategoryListVertical(size) {
+  Widget getCategoryListVertical(size, List<CategoryModel> categoryList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

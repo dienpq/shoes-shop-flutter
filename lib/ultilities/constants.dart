@@ -17,3 +17,9 @@ final Color purpleColor = Color.fromARGB(255, 46, 22, 110);
 final Color primaryColor = Color.fromARGB(255, 55, 151, 98);
 final Color primaryLightColor = Color.fromARGB(255, 137, 167, 150);
 final Color primaryBgColor = Color.fromARGB(255, 236, 240, 236);
+
+// Hàm chuyển đổi chuỗi màu hex thành đối tượng Color
+Color getColorFromHex(String hexColor) {
+  final hexCode = hexColor.replaceAll("#", "");
+  return Color(int.parse("FF$hexCode", radix: 16));
+}

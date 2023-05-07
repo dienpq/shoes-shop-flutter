@@ -171,7 +171,6 @@ class _HomePageState extends State<HomePage> {
         decoration: const InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            // iconColor: Colors.black,
             prefixIconColor: Colors.black,
             contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             border: OutlineInputBorder(
@@ -252,7 +251,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget getUtilities(size) {
     return Container(
-      // margin: EdgeInsets.only(left: 12, right: 12),
       padding: const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 10),
       height: 200,
       child: Column(
@@ -299,33 +297,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getItemsProduct(size) {
-    return Column(
-      children: [
-        const Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-            child: TitleCategoryHomeWidget(title: 'Newest')),
-        ListProductsWidget(displayProducts: getRandomList()),
-        const Padding(
-          padding: EdgeInsets.all(15),
-          child: Divider(),
-        ),
-        const Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-            child: TitleCategoryHomeWidget(title: 'Most Popular')),
-        ListProductsWidget(displayProducts: getRandomList()),
-        const Padding(
-          padding: EdgeInsets.all(15),
-          child: Divider(),
-        ),
-        const Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-            child: TitleCategoryHomeWidget(title: 'Just For You')),
-        ListProductsWidget(displayProducts: getRandomList()),
-      ],
+    return FutureBuilder<List<ProductModel>>(
+      future: fetchProducts(),
+      builder: (context, snapshot) {
+        print(snapshot);
+        if (snapshot.hasData) {
+          final productsList = snapshot.data!;
+
+          // Hiển thị danh sách products ở đây
+          return Column(
+            children: [
+              const Padding(
+                  padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+                  child: TitleCategoryHomeWidget(title: 'Newest')),
+              ListProductsWidget(displayProducts: getRandomList(productsList)),
+              const Padding(
+                padding: EdgeInsets.all(15),
+                child: Divider(),
+              ),
+              const Padding(
+                  padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+                  child: TitleCategoryHomeWidget(title: 'Most Popular')),
+              ListProductsWidget(displayProducts: getRandomList(productsList)),
+              const Padding(
+                padding: EdgeInsets.all(15),
+                child: Divider(),
+              ),
+              const Padding(
+                  padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+                  child: TitleCategoryHomeWidget(title: 'Just For You')),
+              ListProductsWidget(displayProducts: getRandomList(productsList)),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return const Text('Failed to fetch products');
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 
-  List<ProductModel> getRandomList() {
+  List<ProductModel> getRandomList(products) {
     List<ProductModel> mList = products;
     mList.shuffle();
     return mList.sublist(0, 6);

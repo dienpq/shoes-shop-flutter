@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
-
 class ProductModel {
-  int id;
+  String id;
   String name;
   String imagePath;
   String desc;
   String brand;
-  Color color;
+  String color;
   int soldNum;
   int discount = 0;
   double price;
