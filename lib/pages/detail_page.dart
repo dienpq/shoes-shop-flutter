@@ -27,9 +27,9 @@ class _DetailPageState extends State<DetailPage> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: widget.product.color,
+      backgroundColor: getColorFromHex(widget.product.color),
       appBar: AppBar(
-        backgroundColor: widget.product.color,
+        backgroundColor: getColorFromHex(widget.product.color),
         elevation: 0,
         title: const Text("DETAILS"),
         leading: IconButton(

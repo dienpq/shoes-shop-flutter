@@ -16,12 +16,11 @@ class SearchPage extends StatelessWidget {
 
   SearchPage({Key? key, required this.isNavigatorCall}) : super(key: key);
 
-  void _runFilter(String keyword) {
-    List<ProductModel> results = [];
-    if (keyword.isEmpty) {
-      results = products;
-    } else {
-      results = products
+  void _runFilter(String keyword) async {
+    List<ProductModel> results = await fetchProducts();
+    if (keyword.isNotEmpty) {
+      results = await fetchProducts();
+      results = results
           .where((product) => product.getName
               .toString()
               .toLowerCase()
@@ -106,9 +105,10 @@ class SearchPage extends StatelessWidget {
           // SizedBox(width: 5),
           (!isNavigatorCall)
               ? GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     searchController.keywordSearch.value = '';
-                    searchController.foundProducts.value = products;
+                    searchController.foundProducts.value =
+                        await fetchProducts();
                     Navigator.of(context).pop();
                   },
                   child: const Padding(
