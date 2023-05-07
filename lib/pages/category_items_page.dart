@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
-
+import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/detail_page.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
@@ -9,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class CategoryItemsPage extends StatefulWidget {
-  String brand;
-  CategoryItemsPage({Key? key, required this.brand}) : super(key: key);
+  final String brand;
+  const CategoryItemsPage({Key? key, required this.brand}) : super(key: key);
 
   @override
   State<CategoryItemsPage> createState() => _CategoryItemsPageState();
@@ -20,24 +19,36 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
   var filteredList = [];
   @override
   Widget build(BuildContext context) {
-    filteredList = products
-        .where((product) => product.brand == widget.brand.toLowerCase())
-        .toList();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      body: getBodyHome(),
+    return FutureBuilder<List<ProductModel>>(
+      future: fetchProducts(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final products = snapshot.data!;
+          filteredList = products
+              .where((product) => product.brand == widget.brand.toLowerCase())
+              .toList();
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            body: getBodyHome(),
+          );
+        } else if (snapshot.hasError) {
+          return const Text('Failed to fetch products');
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 
@@ -51,24 +62,25 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
             children: <Widget>[
               Text(
                 widget.brand,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
               ),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(FlutterIcons.search, color: Colors.black26))
+                  icon: const Icon(FlutterIcons.search, color: Colors.black26))
             ],
           ),
         ),
         getItemPoster(),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
+              const Text(
                 "JUST FOR YOU",
                 style: TextStyle(
                     color: Colors.black54, fontWeight: FontWeight.bold),
@@ -80,7 +92,7 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
             ],
           ),
         ),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         ...filteredList.map((data) {
           return GestureDetector(
               onTap: () {
@@ -88,9 +100,10 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
                     builder: (_) => DetailPage(product: data)));
               },
               child: Container(
-                margin: EdgeInsets.only(left: 16, right: 16, bottom: 10),
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(
                     Radius.circular(25),
@@ -112,25 +125,25 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
                       height: 60,
                       // fit: BoxFit.cover,
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(
+                          Container(
                             width: MediaQuery.of(context).size.width * .4,
                             child: Text(
                               "${data.name}",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Text(
                             "${data.brand}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black26,
                               height: 1.5,
                             ),
@@ -142,7 +155,7 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         "\$${data.price.toInt()}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -159,12 +172,12 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
   Widget getItemPoster() {
     return Container(
       height: 300,
-      margin: EdgeInsets.symmetric(vertical: 16),
+      margin: const EdgeInsets.symmetric(vertical: 16),
       child: ListView.builder(
           itemCount: filteredList.length,
           scrollDirection: Axis.horizontal,
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -175,11 +188,11 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
               },
               child: Container(
                 width: 230,
-                margin: EdgeInsets.only(right: 16),
+                margin: const EdgeInsets.only(right: 16),
                 child: Stack(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(top: 25),
+                      padding: const EdgeInsets.only(top: 25),
                       child: _buildBackground(index, 230, filteredList),
                     ),
                     Positioned(
@@ -208,12 +221,12 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
     return ClipPath(
       clipper: AppClipper(cornerSize: 25, diagonalHeight: 100),
       child: Container(
-        color: filteredList[index].color,
+        color: getColorFromHex(filteredList[index].color),
         width: width,
         child: Stack(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -227,26 +240,26 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
                       color: Colors.white,
                     ),
                   ),
-                  Expanded(child: SizedBox()),
+                  const Expanded(child: SizedBox()),
                   Container(
-                    padding: EdgeInsets.only(right: 15),
+                    padding: const EdgeInsets.only(right: 15),
                     // width: 125,
                     child: Text(
                       "${filteredList[index].name}",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "\$${filteredList[index].price}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
