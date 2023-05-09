@@ -1,3 +1,4 @@
+import 'package:app_shoes__shop/models/user_model.dart';
 import 'package:app_shoes__shop/pages/components/profile_widget.dart';
 import 'package:app_shoes__shop/pages/my_order_page.dart';
 import 'package:app_shoes__shop/pages/notification_page.dart';
@@ -27,64 +28,78 @@ class ProfilePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(left: 16, right: 16, top: 40),
             width: size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 7),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Profile',
-                        style: TextStyle(
+            child: FutureBuilder<UserModel>(
+              future: fetchUser(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final user = snapshot.data!;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 7),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Profile',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28)),
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => const NotificationPage()));
+                              },
+                              child: const Icon(Icons.notifications,
+                                  color: Colors.white, size: 27))
+                        ],
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    width: 2,
+                                    color:
+                                        const Color.fromARGB(255, 14, 104, 54)),
+                                image: DecorationImage(
+                                    image: AssetImage(user.avatar),
+                                    fit: BoxFit.cover)),
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        user.fullname,
+                        style: const TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28)),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => const NotificationPage()));
-                        },
-                        child: const Icon(Icons.notifications,
-                            color: Colors.white, size: 27))
-                  ],
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(top: 0),
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 2,
-                              color: const Color.fromARGB(255, 14, 104, 54)),
-                          image: DecorationImage(
-                              image: AssetImage(user.avatar),
-                              fit: BoxFit.cover)),
-                    )),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  user.fullname,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                ),
-                Visibility(
-                  visible: false,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  maintainSize: true,
-                  child: Text(
-                    user.email,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(.7),
-                    ),
-                  ),
-                ),
-              ],
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Visibility(
+                        visible: false,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        maintainSize: true,
+                        child: Text(
+                          user.email,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(.7),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text('Failed to fetch user');
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
           ),
         ]),

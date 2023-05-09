@@ -300,7 +300,6 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder<List<ProductModel>>(
       future: fetchProducts(),
       builder: (context, snapshot) {
-        print(snapshot);
         if (snapshot.hasData) {
           final productsList = snapshot.data!;
 

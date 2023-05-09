@@ -1,4 +1,5 @@
 class UserModel {
+  final String id;
   final String fullname;
   final String avatar;
   final String birthday;
@@ -6,6 +7,6 @@ class UserModel {
   final String phoneNum;
   final String address;
 
-  UserModel(this.fullname, this.avatar, this.birthday, this.email,
+  UserModel(this.id, this.fullname, this.avatar, this.birthday, this.email,
       this.phoneNum, this.address);
 }
