@@ -1,8 +1,6 @@
 import 'package:app_shoes__shop/models/cart_item_model.dart';
-import 'package:app_shoes__shop/models/product_model.dart';
-
 class CartModel {
-  int id;
+  String id;
   DateTime time;
   List<CartItemModel> cart;
 

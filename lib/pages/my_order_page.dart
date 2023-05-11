@@ -1,3 +1,4 @@
+import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/components/order_card_widget.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
@@ -98,38 +99,53 @@ class _MyOrderPageState extends State<MyOrderPage> {
             ),
           ),
           Expanded(
-            child: TabBarView(
-              children: [
-                // first tab bar view widget
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      children: List.generate(7, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                          child: OrderCardWidget(
-                              product: products[index], isActive: true),
-                        );
-                      })),
-                ),
+            child: FutureBuilder<List<ProductModel>>(
+              future: fetchProducts(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final products = snapshot.data!;
 
-                // second tab bar view widget
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      children: List.generate(7, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                          child: OrderCardWidget(
-                            product: products[index],
-                            isActive: false,
-                          ),
-                        );
-                      })),
-                ),
-              ],
+                  return TabBarView(
+                    children: [
+                      // first tab bar view widget
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            children: List.generate(2, (index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                child: OrderCardWidget(
+                                    product: products[index], isActive: true),
+                              );
+                            })),
+                      ),
+
+                      // second tab bar view widget
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            children: List.generate(3, (index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                child: OrderCardWidget(
+                                  product: products[index],
+                                  isActive: false,
+                                ),
+                              );
+                            })),
+                      ),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text('Failed to fetch products');
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
             ),
           ),
         ],

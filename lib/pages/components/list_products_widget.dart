@@ -236,5 +236,7 @@ class _ListProductsWidgetState extends State<ListProductsWidget> {
       backgroundColor: Color.fromARGB(221, 0, 114, 82),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    cartController.addItem('6459b5d52d02778a9dce7c29', widget.displayProducts[index].id, 1);
   }
 }

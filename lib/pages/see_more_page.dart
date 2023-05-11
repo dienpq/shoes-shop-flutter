@@ -1,3 +1,4 @@
+import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/components/list_products_widget.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
@@ -87,7 +88,20 @@ class SeeMorePage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          ListProductsWidget(displayProducts: products),
+          FutureBuilder<List<ProductModel>>(
+            future: fetchProducts(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final products = snapshot.data!;
+
+                return ListProductsWidget(displayProducts: products);
+              } else if (snapshot.hasError) {
+                return const Text('Failed to fetch products');
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
           const SizedBox(height: 30),
         ])
       ],

@@ -413,7 +413,10 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 border: Border(
               bottom: BorderSide(
                   width: 1.0,
-                  color: (index == cartInstance.getCart.length - 1)
+                  // color: (index == cartInstance.getCart.length - 1)
+                  //     ? Colors.white
+                  //     : primaryColor.withOpacity(0.2)),
+                  color: (index == 2 - 1)
                       ? Colors.white
                       : primaryColor.withOpacity(0.2)),
             )),

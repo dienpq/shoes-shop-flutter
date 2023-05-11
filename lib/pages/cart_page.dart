@@ -80,9 +80,8 @@ class _CartPageState extends State<CartPage> {
               padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
+                  cartController.clearItems();
                   cartController.itemsCartTest.clear();
-                  cartController.updateItems();
-                  // print(cartController.itemsCartTest.value.length);
                 },
                 child: Text(
                   'Clear all',
@@ -119,12 +118,15 @@ class _CartPageState extends State<CartPage> {
   Widget getTotalPrice() {
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 1)
-          ],
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 1)
+        ],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
       padding: const EdgeInsets.only(bottom: 27, top: 12, left: 25, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +153,8 @@ class _CartPageState extends State<CartPage> {
               onTap: () {
                 if (cartController.itemsCartTest.isNotEmpty) {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const CheckOutPage()));
+                    MaterialPageRoute(builder: (_) => const CheckOutPage()),
+                  );
                 } else {
                   // Show snack bar
                   const snackBar = SnackBar(
@@ -166,14 +169,16 @@ class _CartPageState extends State<CartPage> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(40),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 10,
-                          spreadRadius: 1)
-                    ]),
+                  color: primaryColor,
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                    )
+                  ],
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -202,45 +207,51 @@ class _CartPageState extends State<CartPage> {
     return Obx(() => (cartController.itemsCartTest.isNotEmpty)
         ? Expanded(
             child: SizedBox(
-                height: 200,
-                child: Obx(() => ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: cartController.itemsCartTest.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = cartController.itemsCartTest[index];
-                      return Container(
-                        margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        padding: const EdgeInsets.only(
-                            left: 5, right: 5, top: 5, bottom: 5),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5,
-                                  spreadRadius: 1)
-                            ]),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              margin:
-                                  const EdgeInsets.only(right: 12, left: 10),
-                              width: size.width / 3.5,
-                              height: size.width / 3,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.fitWidth,
-                                      image: AssetImage(item
-                                          .getProduct.getImageUrl
-                                          .toString()))),
+              height: 200,
+              child: Obx(
+                () => ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: cartController.itemsCartTest.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = cartController.itemsCartTest[index];
+                    return Container(
+                      margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      padding: const EdgeInsets.only(
+                          left: 5, right: 5, top: 5, bottom: 5),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                            )
+                          ]),
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 12, left: 10),
+                            width: size.width / 3.5,
+                            height: size.width / 3,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fitWidth,
+                                image: AssetImage(
+                                  item.getProduct.getImageUrl.toString(),
+                                ),
+                              ),
                             ),
-                            getInfoItem(item),
-                          ],
-                        ),
-                      );
-                    }))))
+                          ),
+                          getInfoItem(item),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          )
         : Expanded(
             child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -250,9 +261,11 @@ class _CartPageState extends State<CartPage> {
                 width: size.width / 2.5,
                 height: size.height / 5,
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        // fit: BoxFit.fitWidth,
-                        image: AssetImage('assets/images/img_buy_more_2.png'))),
+                  image: DecorationImage(
+                    // fit: BoxFit.fitWidth,
+                    image: AssetImage('assets/images/img_buy_more_2.png'),
+                  ),
+                ),
               ),
               const Text('Continue Shopping!',
                   style: TextStyle(fontWeight: FontWeight.bold)),
@@ -289,6 +302,8 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: GestureDetector(
                   onTap: () {
+                    cartController.deleteItem(
+                        "645cb2094df08de8a1767469", item.getProduct.getId);
                     cartController.itemsCartTest.remove(item);
                   },
                   child: const Icon(
@@ -365,6 +380,8 @@ class _CartPageState extends State<CartPage> {
                           temporaryCartItem.quantity -= 1;
                           cartController.itemsCartTest[id] = temporaryCartItem;
                         }
+
+                        cartController.desAmountItem('645cb2094df08de8a1767469', item.getProduct.getId);
                       },
                       child: Icon(
                         Icons.remove_circle_outline,
@@ -383,6 +400,9 @@ class _CartPageState extends State<CartPage> {
                           temporaryCartItem.quantity += 1;
                           int id = cartController.itemsCartTest.indexOf(item);
                           cartController.itemsCartTest[id] = temporaryCartItem;
+
+                          cartController.addItem('6459b5d52d02778a9dce7c29',
+                              item.getProduct.getId, 1);
                         },
                         child:
                             Icon(Icons.add_circle_outline, color: primaryColor))

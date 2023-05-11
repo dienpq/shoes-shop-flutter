@@ -702,21 +702,98 @@ Future<List<ProductModel>> fetchProducts() async {
 
 //---------------------- CART MODEL -------------------------------
 
-// final CartItemModel cartItem1 = CartItemModel(product1, 2);
-// final CartItemModel cartItem2 = CartItemModel(product2, 2);
-// final CartItemModel cartItem3 = CartItemModel(product3, 5);
-// final CartItemModel cartItem4 = CartItemModel(product4, 4);
-// final CartItemModel cartItem5 = CartItemModel(product5, 1);
+Future<CartModel> fetchCart(String userId) async {
+  final response =
+      await http.get(Uri.parse('http://localhost:3000/api/users/$userId/cart'));
 
-final List<CartItemModel> itemsInCart = [
-  // cartItem1,
-  // cartItem2,
-  // cartItem3,
-];
+  if (response.statusCode == 200) {
+    final jsonData = json.decode(response.body);
 
-final CartModel cartInstance = CartModel(1, DateTime.now(), itemsInCart);
+    final products = jsonData['products'] as List<dynamic>;
 
-//---------------------- CART MODEL -------------------------------
+    final List<CartItemModel> cartItems = products.map((jsonItem) {
+      final product = ProductModel(
+        id: jsonItem['product']['_id'],
+        name: jsonItem['product']['name'],
+        imagePath: jsonItem['product']['imagePath'],
+        brand: jsonItem['product']['brand'],
+        desc: jsonItem['product']['desc'],
+        color: jsonItem['product']['color'],
+        soldNum: jsonItem['product']['soldNum'],
+        discount: jsonItem['product']['discount'],
+        price: jsonItem['product']['price'],
+      );
+
+      final amount = jsonItem['amount'];
+
+      return CartItemModel(product, amount);
+    }).toList();
+
+    final cartId = jsonData['_id'];
+    final cartDate = DateTime.now();
+
+    return CartModel(cartId, cartDate, cartItems);
+  } else {
+    throw Exception('Failed to fetch cart');
+  }
+}
+
+Future<void> deleteCart(String cartId) async {
+  final url = Uri.parse('http://localhost:3000/api/carts/$cartId');
+
+  try {
+    final response = await http.delete(url);
+
+    if (response.statusCode != 200) {
+      throw Exception(
+          'Failed to delete products from cart. Status code: ${response.statusCode}');
+    }
+  } catch (error) {
+    throw Exception('Failed to fetch delete cart $error');
+  }
+}
+
+Future<void> addToCart(String userId, String productId, int amount) async {
+  final url = Uri.parse('http://localhost:3000/api/carts');
+
+  final data = {
+    'userId': userId,
+    'product': productId,
+    'amount': amount,
+  };
+
+  try {
+    await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    );
+  } catch (error) {
+    throw Exception('Error: $error');
+  }
+}
+
+Future<void> deleteProductFromCart(String cartId, String productId) async {
+  final url = Uri.parse('http://localhost:3000/api/carts/$cartId/products/$productId');
+
+  try {
+    await http.delete(url);
+  } catch (error) {
+    throw Exception('Error: $error');
+  }
+}
+
+Future<void> decreaseProductAmountInCart(String cartId, String productId) async {
+  final url = Uri.parse('http://localhost:3000/api/carts/$cartId/products/$productId/decrease');
+
+  try {
+    await http.put(url);
+  } catch (error) {
+    throw Exception('Error: $error');
+  }
+}
+
+//---------------------- NOTIFYCATION MODEL -------------------------------
 
 final NotificationModel notification1 = NotificationModel(
     id: 1,
@@ -779,7 +856,8 @@ final List<NotificationModel> notifications = [
 ];
 
 Future<UserModel> fetchUser() async {
-  final response = await http.get(Uri.parse('http://localhost:3000/api/users/6459b5d52d02778a9dce7c29'));
+  final response = await http.get(
+      Uri.parse('http://localhost:3000/api/users/6459b5d52d02778a9dce7c29'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
