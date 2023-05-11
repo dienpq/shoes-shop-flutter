@@ -57,7 +57,7 @@ final List<String> imgListBannerCategory = [
 //---------------------- CATEGORY INSTANCE -------------------------------
 Future<List<CategoryModel>> fetchCategories() async {
   final response =
-      await http.get(Uri.parse('http://localhost:3000/api/categories'));
+      await http.get(Uri.parse('http://$host:3000/api/categories'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
@@ -88,7 +88,7 @@ final CustomerModel customerInstance = CustomerModel(
 
 Future<List<ProductModel>> fetchProducts() async {
   final response =
-      await http.get(Uri.parse('http://localhost:3000/api/products'));
+      await http.get(Uri.parse('http://$host:3000/api/products'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
@@ -116,7 +116,7 @@ Future<List<ProductModel>> fetchProducts() async {
 
 Future<CartModel> fetchCart(String userId) async {
   final response =
-      await http.get(Uri.parse('http://localhost:3000/api/users/$userId/cart'));
+      await http.get(Uri.parse('http://$host:3000/api/users/$userId/cart'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
@@ -151,7 +151,7 @@ Future<CartModel> fetchCart(String userId) async {
 }
 
 Future<void> deleteCart(String cartId) async {
-  final url = Uri.parse('http://localhost:3000/api/carts/$cartId');
+  final url = Uri.parse('http://$host:3000/api/carts/$cartId');
 
   try {
     final response = await http.delete(url);
@@ -166,7 +166,7 @@ Future<void> deleteCart(String cartId) async {
 }
 
 Future<void> addToCart(String userId, String productId, int amount) async {
-  final url = Uri.parse('http://localhost:3000/api/carts');
+  final url = Uri.parse('http://$host:3000/api/carts');
 
   final data = {
     'userId': userId,
@@ -186,7 +186,7 @@ Future<void> addToCart(String userId, String productId, int amount) async {
 }
 
 Future<void> deleteProductFromCart(String cartId, String productId) async {
-  final url = Uri.parse('http://localhost:3000/api/carts/$cartId/products/$productId');
+  final url = Uri.parse('http://$host:3000/api/carts/$cartId/products/$productId');
 
   try {
     await http.delete(url);
@@ -196,7 +196,7 @@ Future<void> deleteProductFromCart(String cartId, String productId) async {
 }
 
 Future<void> decreaseProductAmountInCart(String cartId, String productId) async {
-  final url = Uri.parse('http://localhost:3000/api/carts/$cartId/products/$productId/decrease');
+  final url = Uri.parse('http://$host:3000/api/carts/$cartId/products/$productId/decrease');
 
   try {
     await http.put(url);
@@ -269,7 +269,7 @@ final List<NotificationModel> notifications = [
 
 Future<UserModel> fetchUser() async {
   final response = await http.get(
-      Uri.parse('http://localhost:3000/api/users/6459b5d52d02778a9dce7c29'));
+      Uri.parse('http://$host:3000/api/users/6459b5d52d02778a9dce7c29'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);

@@ -23,3 +23,6 @@ Color getColorFromHex(String hexColor) {
   final hexCode = hexColor.replaceAll("#", "");
   return Color(int.parse("FF$hexCode", radix: 16));
 }
+
+// Host
+final host = '192.168.16.102';
