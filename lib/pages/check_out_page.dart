@@ -1,5 +1,6 @@
 import 'package:app_shoes__shop/controllers/cart_controller.dart';
 import 'package:app_shoes__shop/models/cart_item_model.dart';
+import 'package:app_shoes__shop/models/user_model.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -321,44 +322,59 @@ class _CheckOutPageState extends State<CheckOutPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, bottom: 10, top: 5),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.location_on_rounded,
-                              color: primaryColor,
-                            ),
-                            const SizedBox(width: 15),
-                            Text(
-                              "${customerInstance.getName}",
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            ),
-                            const SizedBox(width: 20),
-                            Text(
-                              customerInstance.phoneNum,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          "${customerInstance.getAddress}",
-                          style:
-                              TextStyle(color: Colors.black.withOpacity(0.7)),
-                        )
-                      ],
-                    ))),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, bottom: 10, top: 5),
+                child: FutureBuilder<UserModel>(
+                  future: fetchUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final user = snapshot.data!;
+
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.location_on_rounded,
+                                color: primaryColor,
+                              ),
+                              const SizedBox(width: 15),
+                              Text(
+                                user.fullname,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              ),
+                              const SizedBox(width: 20),
+                              Text(
+                                user.phoneNum,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            user.address,
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.7)),
+                          )
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text('Failed to fetch user');
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
+            ),
             const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 16)
           ],
         ));
