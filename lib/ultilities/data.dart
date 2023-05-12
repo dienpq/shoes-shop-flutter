@@ -1,5 +1,4 @@
 //---------------------- ICONS -------------------------------
-import 'dart:math';
 
 import 'package:app_shoes__shop/models/cart_item_model.dart';
 import 'package:app_shoes__shop/models/cart_model.dart';
@@ -11,6 +10,8 @@ import 'package:app_shoes__shop/models/user_model.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 final List icons = [
   'https://cdn-icons-png.flaticon.com/128/7483/7483830.png',
@@ -87,8 +88,7 @@ final CustomerModel customerInstance = CustomerModel(
 //---------------------- ITEM CART MODEL -------------------------------
 
 Future<List<ProductModel>> fetchProducts() async {
-  final response =
-      await http.get(Uri.parse('http://$host:3000/api/products'));
+  final response = await http.get(Uri.parse('http://$host:3000/api/products'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
@@ -114,7 +114,9 @@ Future<List<ProductModel>> fetchProducts() async {
 
 //---------------------- CART MODEL -------------------------------
 
-Future<CartModel> fetchCart(String userId) async {
+Future<CartModel> fetchCart() async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
   final response =
       await http.get(Uri.parse('http://$host:3000/api/users/$userId/cart'));
 
@@ -150,8 +152,10 @@ Future<CartModel> fetchCart(String userId) async {
   }
 }
 
-Future<void> deleteCart(String cartId) async {
-  final url = Uri.parse('http://$host:3000/api/carts/$cartId');
+Future<void> deleteCart() async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+  final url = Uri.parse('http://$host:3000/api/carts/$userId');
 
   try {
     final response = await http.delete(url);
@@ -165,7 +169,9 @@ Future<void> deleteCart(String cartId) async {
   }
 }
 
-Future<void> addToCart(String userId, String productId, int amount) async {
+Future<void> addToCart(String productId, int amount) async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
   final url = Uri.parse('http://$host:3000/api/carts');
 
   final data = {
@@ -185,8 +191,11 @@ Future<void> addToCart(String userId, String productId, int amount) async {
   }
 }
 
-Future<void> deleteProductFromCart(String cartId, String productId) async {
-  final url = Uri.parse('http://$host:3000/api/carts/$cartId/products/$productId');
+Future<void> deleteProductFromCart(String productId) async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+  final url =
+      Uri.parse('http://$host:3000/api/carts/$userId/products/$productId');
 
   try {
     await http.delete(url);
@@ -195,8 +204,11 @@ Future<void> deleteProductFromCart(String cartId, String productId) async {
   }
 }
 
-Future<void> decreaseProductAmountInCart(String cartId, String productId) async {
-  final url = Uri.parse('http://$host:3000/api/carts/$cartId/products/$productId/decrease');
+Future<void> decreaseProductAmountInCart(String productId) async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+  final url = Uri.parse(
+      'http://$host:3000/api/carts/$userId/products/$productId/decrease');
 
   try {
     await http.put(url);
@@ -267,9 +279,16 @@ final List<NotificationModel> notifications = [
   notification7,
 ];
 
+Future<String?> getUserId() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('userId');
+}
+
 Future<UserModel> fetchUser() async {
-  final response = await http.get(
-      Uri.parse('http://$host:3000/api/users/6459b5d52d02778a9dce7c29'));
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+  final response =
+      await http.get(Uri.parse('http://$host:3000/api/users/$userId'));
 
   if (response.statusCode == 200) {
     final jsonData = json.decode(response.body);
@@ -285,4 +304,66 @@ Future<UserModel> fetchUser() async {
   } else {
     throw Exception('Failed to fetch user');
   }
+}
+
+Future<bool> checkLogin(String username, String password) async {
+  final url = Uri.parse(
+      'http://$host:3000/login'); // Thay thế bằng URL API login của bạn
+
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'username': username, 'password': password}),
+  );
+
+  if (response.statusCode == 200) {
+    final jsonResponse = jsonDecode(response.body);
+    String token = jsonResponse['token'];
+
+    if (token.isNotEmpty) {
+      await saveToken(token);
+
+      return true;
+    }
+  }
+  return false;
+}
+
+// Lấy User ID từ token
+String? getUserIdFromToken(String token) {
+  Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+  if (decodedToken.containsKey('id')) {
+    return decodedToken['id'];
+  }
+  return null;
+}
+
+// Lấy thông tin hết hạn từ token
+DateTime? getTokenExpiration(String token) {
+  Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+  if (decodedToken.containsKey('exp')) {
+    int expirationUnixTimestamp = decodedToken['exp'];
+    return DateTime.fromMillisecondsSinceEpoch(expirationUnixTimestamp * 1000);
+  }
+  return null;
+}
+
+// Lưu thông tin token và userId vào SharedPreferences
+Future<void> saveToken(String token) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', token);
+}
+
+// Truy xuất thông tin token từ SharedPreferences
+Future<String?> getToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('token');
+}
+
+// Kiểm tra xem token có hết hạn hay không
+bool isTokenExpired(DateTime? expiration) {
+  if (expiration == null) {
+    return true; // Token hết hạn nếu không có thông tin về hết hạn
+  }
+  return DateTime.now().isAfter(expiration);
 }

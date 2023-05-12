@@ -269,6 +269,6 @@ class _DetailPageState extends State<DetailPage> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    cartController.addItem('6459b5d52d02778a9dce7c29', widget.product.getId, 1);
+    cartController.addItem(widget.product.getId, 1);
   }
 }

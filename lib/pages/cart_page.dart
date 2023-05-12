@@ -302,8 +302,7 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: GestureDetector(
                   onTap: () {
-                    cartController.deleteItem(
-                        "645cb2094df08de8a1767469", item.getProduct.getId);
+                    cartController.deleteItem(item.getProduct.getId);
                     cartController.itemsCartTest.remove(item);
                   },
                   child: const Icon(
@@ -381,7 +380,7 @@ class _CartPageState extends State<CartPage> {
                           cartController.itemsCartTest[id] = temporaryCartItem;
                         }
 
-                        cartController.desAmountItem('645cb2094df08de8a1767469', item.getProduct.getId);
+                        cartController.desAmountItem(item.getProduct.getId);
                       },
                       child: Icon(
                         Icons.remove_circle_outline,
@@ -401,8 +400,7 @@ class _CartPageState extends State<CartPage> {
                           int id = cartController.itemsCartTest.indexOf(item);
                           cartController.itemsCartTest[id] = temporaryCartItem;
 
-                          cartController.addItem('6459b5d52d02778a9dce7c29',
-                              item.getProduct.getId, 1);
+                          cartController.addItem(item.getProduct.getId, 1);
                         },
                         child:
                             Icon(Icons.add_circle_outline, color: primaryColor))

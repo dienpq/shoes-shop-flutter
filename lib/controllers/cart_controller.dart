@@ -10,34 +10,34 @@ class CartController extends GetxController {
 
   void clearItems() {
     try {
-      deleteCart('645cb2094df08de8a1767469');
+      deleteCart();
     } catch (error) {
       // ignore: avoid_print
       print('Failed to fetch delete cart: $error');
     }
   }
 
-  void addItem(userId, productId, amount) {
+  void addItem(productId, amount) {
     try {
-      addToCart(userId, productId, amount);
+      addToCart(productId, amount);
     } catch (error) {
       // ignore: avoid_print
       print('Failed to fetch add item cart: $error');
     }
   }
 
-  void deleteItem(cardId, productId) {
+  void deleteItem(productId) {
     try {
-      deleteProductFromCart(cardId, productId);
+      deleteProductFromCart(productId);
     } catch (error) {
       // ignore: avoid_print
       print('Failed to fetch delete item cart: $error');
     }
   }
 
-  void desAmountItem(cardId, productId) {
+  void desAmountItem(productId) {
     try {
-      decreaseProductAmountInCart(cardId, productId);
+      decreaseProductAmountInCart(productId);
     } catch (error) {
       // ignore: avoid_print
       print('Failed to fetch delete item cart: $error');
@@ -52,7 +52,7 @@ class CartController extends GetxController {
 
   void fetchCartFromApi() async {
     try {
-      CartModel cartInstance = await fetchCart('6459b5d52d02778a9dce7c29');
+      CartModel cartInstance = await fetchCart();
       cartTest = cartInstance.obs;
       itemsCartTest.value = cartInstance.cart;
     } catch (error) {

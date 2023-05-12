@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class SearchPage extends StatelessWidget {
-  var searchController = Get.put(SearchController());
+  var searchController = Get.put(SearchProductController());
   bool isNavigatorCall = false;
   final textController = TextEditingController();
 

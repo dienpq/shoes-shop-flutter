@@ -36,7 +36,6 @@ class _ListProductsWidgetState extends State<ListProductsWidget> {
                       DetailPage(product: widget.displayProducts[index])));
             },
             child: Container(
-              // height: size.width/2 + 50,
               width: (size.width - 60) / 2,
               decoration: const BoxDecoration(
                   color: Colors.white,
@@ -237,6 +236,6 @@ class _ListProductsWidgetState extends State<ListProductsWidget> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    cartController.addItem('6459b5d52d02778a9dce7c29', widget.displayProducts[index].id, 1);
+    cartController.addItem(widget.displayProducts[index].id, 1);
   }
 }
