@@ -1,11 +1,13 @@
 import 'package:app_shoes__shop/models/user_model.dart';
 import 'package:app_shoes__shop/pages/components/profile_widget.dart';
+import 'package:app_shoes__shop/pages/login.dart';
 import 'package:app_shoes__shop/pages/my_order_page.dart';
 import 'package:app_shoes__shop/pages/notification_page.dart';
 import 'package:app_shoes__shop/pages/profile_info_page.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -221,9 +223,19 @@ class ProfilePage extends StatelessWidget {
                   title: 'Share',
                 ),
                 const Divider(),
-                const ProfileWidget(
-                  icon: Icons.logout,
-                  title: 'Log Out',
+                GestureDetector(
+                  onTap: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    );
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.remove('token');
+                  },
+                  child: const ProfileWidget(
+                    icon: Icons.logout,
+                    title: 'Log Out',
+                  ),
                 ),
               ],
             ),

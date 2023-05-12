@@ -360,10 +360,17 @@ Future<String?> getToken() async {
   return prefs.getString('token');
 }
 
-// Kiểm tra xem token có hết hạn hay không
-bool isTokenExpired(DateTime? expiration) {
-  if (expiration == null) {
-    return true; // Token hết hạn nếu không có thông tin về hết hạn
+Future<bool> checkToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+
+  if (token != null) {
+    DateTime? exp = getTokenExpiration(token);
+    if (exp != null && exp.isAfter(DateTime.now())) {
+      return true;
+    }
   }
-  return DateTime.now().isAfter(expiration);
+
+  return false;
 }
+
