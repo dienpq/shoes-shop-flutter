@@ -1,5 +1,5 @@
 import 'package:app_shoes__shop/models/product_model.dart';
-import 'package:app_shoes__shop/ultilities/data.dart';
+import 'package:app_shoes__shop/ultilities/action.dart';
 import 'package:get/get.dart';
 
 class SearchProductController extends GetxController {

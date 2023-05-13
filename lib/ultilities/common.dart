@@ -6,14 +6,14 @@ class CommonStyles {
       labelText: label,
       hintText: hint,
       alignLabelWithHint: true,
-      contentPadding: EdgeInsets.symmetric(vertical: 5),
-      labelStyle: TextStyle(color: Colors.black),
-      enabledBorder: UnderlineInputBorder(
+      contentPadding: const EdgeInsets.symmetric(vertical: 5),
+      labelStyle: const TextStyle(color: Colors.black),
+      enabledBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
           color: Colors.black,
         ),
       ),
-      focusedBorder: UnderlineInputBorder(
+      focusedBorder: const UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.black, width: 2),
       ),
     );

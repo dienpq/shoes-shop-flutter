@@ -1,6 +1,6 @@
 import 'package:app_shoes__shop/models/user_model.dart';
+import 'package:app_shoes__shop/ultilities/action.dart';
 import 'package:app_shoes__shop/ultilities/color.dart';
-import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:flutter/material.dart';
 
 class ProfileInfoPage extends StatefulWidget {

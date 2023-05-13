@@ -1,8 +1,8 @@
 import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/detail_page.dart';
+import 'package:app_shoes__shop/ultilities/action.dart';
 import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
-import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
 import 'package:app_shoes__shop/pages/components/app_clipper.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +131,7 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * .4,
                             child: Text(
                               "${data.name}",
