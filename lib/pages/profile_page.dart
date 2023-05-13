@@ -4,7 +4,7 @@ import 'package:app_shoes__shop/pages/login.dart';
 import 'package:app_shoes__shop/pages/my_order_page.dart';
 import 'package:app_shoes__shop/pages/notification_page.dart';
 import 'package:app_shoes__shop/pages/profile_info_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,9 +126,9 @@ class ProfilePage extends StatelessWidget {
                   ]),
               child: Column(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.list_alt_outlined,
-                    color: primaryColor,
+                    color: ColorUtils.primaryColor,
                     size: 65,
                   ),
                   Text("Orders",
@@ -159,9 +159,9 @@ class ProfilePage extends StatelessWidget {
                   ]),
               child: Column(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.confirmation_number_outlined,
-                    color: primaryColor,
+                    color: ColorUtils.primaryColor,
                     size: 65,
                   ),
                   Text("Vouchers",
@@ -249,7 +249,7 @@ class ProfilePage extends StatelessWidget {
 class HeaderCurvedContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = primaryColor;
+    Paint paint = Paint()..color = ColorUtils.primaryColor;
     Path path = Path()
       ..relativeLineTo(0, 225)
       ..quadraticBezierTo(size.width / 2, 310, size.width, 225)

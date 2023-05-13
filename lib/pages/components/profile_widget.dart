@@ -1,4 +1,4 @@
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -21,7 +21,7 @@ class ProfileWidget extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: primaryColor,
+                color: ColorUtils.primaryColor,
                 size: 24,
               ),
               const SizedBox(
@@ -39,7 +39,7 @@ class ProfileWidget extends StatelessWidget {
           ),
           Icon(
             Icons.arrow_forward_ios,
-            color: primaryColor.withOpacity(0.7),
+            color: ColorUtils.primaryColor.withOpacity(0.7),
             size: 16,
           )
         ],

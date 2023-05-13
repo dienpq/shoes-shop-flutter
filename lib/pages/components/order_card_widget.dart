@@ -1,6 +1,6 @@
 import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/detail_order_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:flutter/material.dart';
 
 class OrderCardWidget extends StatelessWidget {
@@ -71,7 +71,7 @@ class OrderCardWidget extends StatelessWidget {
                             vertical: 3, horizontal: 7),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: primaryBgColor,
+                          color: ColorUtils.primaryBgColor,
                         ),
                         child: Text(orderState,
                             style: TextStyle(
@@ -107,7 +107,7 @@ class OrderCardWidget extends StatelessWidget {
                             vertical: 7, horizontal: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: primaryColor,
+                          color: ColorUtils.primaryColor,
                         ),
                         child: Text(
                           textButton,

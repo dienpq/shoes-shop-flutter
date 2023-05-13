@@ -1,6 +1,6 @@
 import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/components/order_card_widget.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        // backgroundColor: primaryColor,
+        // backgroundColor: ColorUtils.primaryColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -48,10 +48,10 @@ class _MyOrderPageState extends State<MyOrderPage> {
                 Container(
                   width: size.width / 5,
                   padding: EdgeInsets.only(left: size.width / 5 * 0.1),
-                  color: primaryColor,
+                  color: ColorUtils.primaryColor,
                   child: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.tune, color: primaryBgColor)),
+                      icon: const Icon(Icons.tune, color: ColorUtils.primaryBgColor)),
                 )
               ],
             ),
@@ -73,13 +73,13 @@ class _MyOrderPageState extends State<MyOrderPage> {
             child: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              bottom: TabBar(
-                indicatorColor: primaryColor,
+              bottom: const TabBar(
+                indicatorColor: ColorUtils.primaryColor,
                 indicatorWeight: 3,
-                labelColor: primaryColor,
-                unselectedLabelColor: primaryLightColor,
-                physics: const ScrollPhysics(),
-                tabs: const [
+                labelColor: ColorUtils.primaryColor,
+                unselectedLabelColor: ColorUtils.primaryLightColor,
+                physics: ScrollPhysics(),
+                tabs: [
                   Tab(
                     child: Text(
                       'Active',

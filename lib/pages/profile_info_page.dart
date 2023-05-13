@@ -1,5 +1,5 @@
 import 'package:app_shoes__shop/models/user_model.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:flutter/material.dart';
 
@@ -219,18 +219,18 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                         ],
                         borderRadius: BorderRadius.circular(15),
                         color: Colors.white),
-                    child: Center(
+                    child: const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.image_outlined,
-                            color: primaryColor,
+                            color: ColorUtils.primaryColor,
                             size: 70,
                           ),
                           Text('Click to get your location',
                               style: TextStyle(
-                                color: primaryColor,
+                                color: ColorUtils.primaryColor,
                                 fontWeight: FontWeight.bold,
                               ))
                         ],

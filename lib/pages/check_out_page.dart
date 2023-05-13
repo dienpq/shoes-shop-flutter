@@ -1,7 +1,7 @@
 import 'package:app_shoes__shop/controllers/cart_controller.dart';
 import 'package:app_shoes__shop/models/cart_item_model.dart';
 import 'package:app_shoes__shop/models/user_model.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
+        backgroundColor: ColorUtils.primaryColor,
         centerTitle: true,
         title: const Text('Check out'),
         leading: GestureDetector(
@@ -57,17 +57,17 @@ class _CheckOutPageState extends State<CheckOutPage> {
               getIntro(),
               getInfoCustomer(),
               Divider(
-                color: primaryColor.withOpacity(0.2),
+                color: ColorUtils.primaryColor.withOpacity(0.2),
                 thickness: 7,
               ),
               getChooseAll(isChecked),
               Divider(
-                color: primaryColor.withOpacity(0.2),
+                color: ColorUtils.primaryColor.withOpacity(0.2),
                 thickness: 2,
               ),
               getItems(),
               Divider(
-                color: primaryColor.withOpacity(0.2),
+                color: ColorUtils.primaryColor.withOpacity(0.2),
                 thickness: 7,
               ),
               getAdditionalFee(),
@@ -96,17 +96,17 @@ class _CheckOutPageState extends State<CheckOutPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 5.0),
                   child: Row(
                     children: [
                       Icon(
                         Icons.payments_outlined,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                         size: 30,
                       ),
-                      const SizedBox(width: 25),
-                      const Text(
+                      SizedBox(width: 25),
+                      Text(
                         "Subtotal",
                         style: TextStyle(
                             color: Colors.black,
@@ -129,20 +129,20 @@ class _CheckOutPageState extends State<CheckOutPage> {
               ],
             ),
             const Divider(),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
+                  padding: EdgeInsets.only(left: 5.0),
                   child: Row(
                     children: [
                       Icon(
                         Icons.delivery_dining_rounded,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                         size: 30,
                       ),
-                      const SizedBox(width: 25),
-                      const Text(
+                      SizedBox(width: 25),
+                      Text(
                         "Delivery Fee",
                         style: TextStyle(
                             color: Colors.black,
@@ -152,7 +152,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     ],
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 12.0),
                   child: Text(
                     "\$8.00",
@@ -165,20 +165,20 @@ class _CheckOutPageState extends State<CheckOutPage> {
               ],
             ),
             const Divider(),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
+                  padding: EdgeInsets.only(left: 5.0),
                   child: Row(
                     children: [
                       Icon(
                         Icons.trending_up_rounded,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                         size: 30,
                       ),
-                      const SizedBox(width: 25),
-                      const Text(
+                      SizedBox(width: 25),
+                      Text(
                         "VAT",
                         style: TextStyle(
                             color: Colors.black,
@@ -188,7 +188,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     ],
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(right: 12.0),
                   child: Text(
                     "\$2.00",
@@ -201,20 +201,20 @@ class _CheckOutPageState extends State<CheckOutPage> {
               ],
             ),
             const Divider(),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
+                  padding: EdgeInsets.only(left: 5.0),
                   child: Row(
                     children: [
                       Icon(
                         Icons.receipt_rounded,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                         size: 30,
                       ),
-                      const SizedBox(width: 25),
-                      const Text(
+                      SizedBox(width: 25),
+                      Text(
                         "Discount",
                         style: TextStyle(
                             color: Colors.black,
@@ -225,11 +225,11 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 12.0),
+                  padding: EdgeInsets.only(right: 12.0),
                   child: Text(
                     "-0% (\$0.00)",
                     style: TextStyle(
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
@@ -238,22 +238,22 @@ class _CheckOutPageState extends State<CheckOutPage> {
             ),
             Divider(
               thickness: 2,
-              color: primaryLightColor.withOpacity(0.7),
+              color: ColorUtils.primaryLightColor.withOpacity(0.7),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 5.0),
                   child: Row(
                     children: [
                       Icon(
                         Icons.paid_rounded,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                         size: 30,
                       ),
-                      const SizedBox(width: 25),
-                      const Text(
+                      SizedBox(width: 25),
+                      Text(
                         "Total",
                         style: TextStyle(
                             color: Colors.black,
@@ -282,10 +282,10 @@ class _CheckOutPageState extends State<CheckOutPage> {
   Widget getIntro() {
     return Container(
         decoration: BoxDecoration(
-            color: primaryColor.withOpacity(0.2),
+            color: ColorUtils.primaryColor.withOpacity(0.2),
             border: Border(
               bottom:
-                  BorderSide(width: 0.5, color: primaryColor.withOpacity(0.2)),
+                  BorderSide(width: 0.5, color: ColorUtils.primaryColor.withOpacity(0.2)),
             )),
         child: Padding(
           padding:
@@ -336,9 +336,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_on_rounded,
-                                color: primaryColor,
+                                color: ColorUtils.primaryColor,
                               ),
                               const SizedBox(width: 15),
                               Text(
@@ -404,11 +404,11 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     ))
               ],
             ),
-            Padding(
-                padding: const EdgeInsets.only(right: 10),
+            const Padding(
+                padding: EdgeInsets.only(right: 10),
                 child: Icon(
                   Icons.delete_outline_rounded,
-                  color: primaryColor,
+                  color: ColorUtils.primaryColor,
                   size: 27,
                 ))
           ],
@@ -434,7 +434,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   //     : primaryColor.withOpacity(0.2)),
                   color: (index == 2 - 1)
                       ? Colors.white
-                      : primaryColor.withOpacity(0.2)),
+                      : ColorUtils.primaryColor.withOpacity(0.2)),
             )),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -487,16 +487,16 @@ class _CheckOutPageState extends State<CheckOutPage> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
           decoration: BoxDecoration(
-              color: primaryColor,
+              color: ColorUtils.primaryColor,
               borderRadius: BorderRadius.circular(40),
               boxShadow: const [
                 BoxShadow(
                     color: Colors.black12, blurRadius: 10, spreadRadius: 1)
               ]),
-          child: Center(
+          child: const Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
                   Icons.shopping_cart_rounded,
                   color: Colors.white,
@@ -520,9 +520,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
       context: context,
       animType: AnimType.SCALE,
       dialogType: DialogType.SUCCES,
-      body: Center(
+      body: const Center(
         child: Column(
-          children: const [
+          children: [
             SizedBox(height: 10),
             Text(
               'Success!',
@@ -585,9 +585,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           cartController.itemsCartTest[id] = temporaryCartItem;
                         }
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.remove_circle_outline,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                       ),
                     ),
                     const SizedBox(width: 6),
@@ -604,22 +604,22 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           cartController.itemsCartTest[id] = temporaryCartItem;
                         },
                         child:
-                            Icon(Icons.add_circle_outline, color: primaryColor))
+                            const Icon(Icons.add_circle_outline, color: ColorUtils.primaryColor))
                   ],
                 ),
-                Row(
+                const Row(
                   children: [
                     Icon(
                       Icons.trending_down_outlined,
                       size: 15,
-                      color: yellowColor,
+                      color: ColorUtils.yellowColor,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 1,
                     ),
                     Text(
                       "Decreasing Price",
-                      style: TextStyle(color: yellowColor, fontSize: 12),
+                      style: TextStyle(color: ColorUtils.yellowColor, fontSize: 12),
                     )
                   ],
                 )
@@ -658,7 +658,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
           ),
         ],
       ),
-      child: Row(),
+      child: const Row(),
     );
   }
 }

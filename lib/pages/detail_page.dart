@@ -1,6 +1,7 @@
 import 'package:app_shoes__shop/controllers/cart_controller.dart';
 import 'package:app_shoes__shop/models/cart_item_model.dart';
 import 'package:app_shoes__shop/models/product_model.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
 import 'package:app_shoes__shop/pages/components/app_clipper.dart';
@@ -93,10 +94,10 @@ class _DetailPageState extends State<DetailPage> {
                           const SizedBox(height: 16),
                           Row(
                             children: <Widget>[
-                              _buildColorOption(blueColor),
-                              _buildColorOption(greenColor),
-                              _buildColorOption(orangeColor),
-                              _buildColorOption(redColor),
+                              _buildColorOption(ColorUtils.blueColor),
+                              _buildColorOption(ColorUtils.greenColor),
+                              _buildColorOption(ColorUtils.orangeColor),
+                              _buildColorOption(ColorUtils.redColor),
                             ],
                           )
                         ],
@@ -174,9 +175,9 @@ class _DetailPageState extends State<DetailPage> {
                 vertical: 16,
                 horizontal: 50,
               ),
-              decoration: BoxDecoration(
-                color: greenColor,
-                borderRadius: const BorderRadius.all(
+              decoration: const BoxDecoration(
+                color: ColorUtils.greenColor,
+                borderRadius: BorderRadius.all(
                   Radius.circular(50),
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:app_shoes__shop/models/category_model.dart';
 import 'package:app_shoes__shop/pages/category_items_page.dart';
 import 'package:app_shoes__shop/pages/components/banner_slider.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +48,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
               Container(
                 width: size.width / 5,
                 padding: EdgeInsets.only(left: size.width / 5 * 0.1),
-                color: primaryColor,
+                color: ColorUtils.primaryColor,
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.list_alt_rounded,
-                        size: 32, color: primaryBgColor)),
+                    icon: const Icon(Icons.list_alt_rounded,
+                        size: 32, color: ColorUtils.primaryBgColor)),
               )
             ],
           ),

@@ -3,7 +3,7 @@ import 'package:app_shoes__shop/pages/categories_page.dart';
 import 'package:app_shoes__shop/pages/home_page.dart';
 import 'package:app_shoes__shop/pages/profile_page.dart';
 import 'package:app_shoes__shop/pages/search_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -44,18 +44,18 @@ class _ControlPageState extends State<ControlPage> {
 
   Widget getConvexAppBar() {
     return Container(
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          color: primaryColor,
-          boxShadow: const [
+          color: ColorUtils.primaryColor,
+          boxShadow: [
             BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 10)
           ]),
       child: ConvexAppBar(
         height: 50,
         top: -20,
         backgroundColor: Colors.white,
-        activeColor: primaryColor,
+        activeColor: ColorUtils.primaryColor,
         color: const Color.fromARGB(255, 146, 165, 154),
         items: const [
           TabItem(icon: FlutterIcons.compass),

@@ -2,7 +2,7 @@ import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/components/list_products_widget.dart';
 import 'package:app_shoes__shop/pages/notification_page.dart';
 import 'package:app_shoes__shop/pages/search_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:app_shoes__shop/pages/components/banner_slider.dart';
 import 'package:app_shoes__shop/pages/components/title_category_home_widget.dart';
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: primaryColor,
+        backgroundColor: ColorUtils.primaryColor,
         body: getBodyHome(size),
       ),
     );
@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage> {
     return Container(
         height: 80,
         padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: primaryColor,
+        decoration: const BoxDecoration(
+          color: ColorUtils.primaryColor,
         ),
         child: IntrinsicHeight(
           child: Stack(
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
         },
         // controller: textController,
         textInputAction: TextInputAction.done,
-        cursorColor: primaryColor,
+        cursorColor: ColorUtils.primaryColor,
         decoration: const InputDecoration(
             filled: true,
             fillColor: Colors.white,
@@ -256,12 +256,12 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+          const Padding(
+            padding: EdgeInsets.only(left: 10.0),
             child: Text(
               "Utilities",
               style: TextStyle(
-                  color: primaryColor,
+                  color: ColorUtils.primaryColor,
                   fontSize: 22,
                   fontWeight: FontWeight.bold),
             ),

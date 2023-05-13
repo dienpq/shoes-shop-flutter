@@ -1,7 +1,7 @@
 import 'package:app_shoes__shop/controllers/cart_controller.dart';
 import 'package:app_shoes__shop/models/cart_item_model.dart';
 import 'package:app_shoes__shop/pages/check_out_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,11 +55,11 @@ class _CartPageState extends State<CartPage> {
               Container(
                 width: size.width / 5,
                 padding: EdgeInsets.only(left: size.width / 5 * 0.1),
-                color: primaryColor,
+                color: ColorUtils.primaryColor,
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.shopping_cart_outlined,
-                        size: 32, color: primaryBgColor)),
+                    icon: const Icon(Icons.shopping_cart_outlined,
+                        size: 32, color: ColorUtils.primaryBgColor)),
               )
             ],
           ),
@@ -94,10 +94,10 @@ class _CartPageState extends State<CartPage> {
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.0),
           child: Divider(
-            color: primaryColor,
+            color: ColorUtils.primaryColor,
             thickness: 2,
           ),
         ),
@@ -169,7 +169,7 @@ class _CartPageState extends State<CartPage> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 decoration: BoxDecoration(
-                  color: primaryColor,
+                  color: ColorUtils.primaryColor,
                   borderRadius: BorderRadius.circular(40),
                   boxShadow: const [
                     BoxShadow(
@@ -179,9 +179,9 @@ class _CartPageState extends State<CartPage> {
                     )
                   ],
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       'Checkout',
                       style: TextStyle(
@@ -322,19 +322,19 @@ class _CartPageState extends State<CartPage> {
                 color: Colors.black.withOpacity(0.7)),
           ),
           const SizedBox(height: 7),
-          Row(
+          const Row(
             children: [
               Icon(
                 Icons.trending_down_outlined,
                 size: 15,
-                color: yellowColor,
+                color: ColorUtils.yellowColor,
               ),
-              const SizedBox(
+              SizedBox(
                 width: 1,
               ),
               Text(
                 "Decreasing Price",
-                style: TextStyle(color: yellowColor, fontSize: 12),
+                style: TextStyle(color: ColorUtils.yellowColor, fontSize: 12),
               )
             ],
           ),
@@ -364,7 +364,7 @@ class _CartPageState extends State<CartPage> {
                 padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 7),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: primaryBgColor),
+                    color: ColorUtils.primaryBgColor),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -382,9 +382,9 @@ class _CartPageState extends State<CartPage> {
 
                         cartController.desAmountItem(item.getProduct.getId);
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.remove_circle_outline,
-                        color: primaryColor,
+                        color: ColorUtils.primaryColor,
                       ),
                     ),
                     const SizedBox(width: 6),
@@ -403,7 +403,7 @@ class _CartPageState extends State<CartPage> {
                           cartController.addItem(item.getProduct.getId, 1);
                         },
                         child:
-                            Icon(Icons.add_circle_outline, color: primaryColor))
+                            const Icon(Icons.add_circle_outline, color: ColorUtils.primaryColor))
                   ],
                 ),
               ),
@@ -432,7 +432,7 @@ class _CartPageState extends State<CartPage> {
           ),
         ],
       ),
-      child: Row(),
+      child: const Row(),
     );
   }
 }

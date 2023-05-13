@@ -1,5 +1,5 @@
 import 'package:app_shoes__shop/pages/see_more_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:flutter/material.dart';
 
 class TitleCategoryHomeWidget extends StatelessWidget {
@@ -17,8 +17,8 @@ class TitleCategoryHomeWidget extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10.0),
           child: Text(
             title,
-            style: TextStyle(
-                color: primaryColor, fontSize: 22, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: ColorUtils.primaryColor, fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(

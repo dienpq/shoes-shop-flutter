@@ -1,5 +1,6 @@
 import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/detail_page.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/constants.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
@@ -75,19 +76,19 @@ class _CategoryItemsPageState extends State<CategoryItemsPage> {
         const SizedBox(
           height: 16,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text(
+              Text(
                 "JUST FOR YOU",
                 style: TextStyle(
                     color: Colors.black54, fontWeight: FontWeight.bold),
               ),
               Text(
                 "VIEW ALL",
-                style: TextStyle(color: greenColor, fontSize: 12),
+                style: TextStyle(color: ColorUtils.greenColor, fontSize: 12),
               ),
             ],
           ),

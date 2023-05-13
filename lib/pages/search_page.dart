@@ -1,7 +1,7 @@
 import 'package:app_shoes__shop/controllers/search_controller.dart';
 import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/components/list_products_widget.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:app_shoes__shop/ultilities/flutter_icons.dart';
 import 'package:app_shoes__shop/pages/components/banner_slider.dart';
@@ -85,10 +85,10 @@ class SearchPage extends StatelessWidget {
               Container(
                 width: size.width / 5,
                 padding: EdgeInsets.only(left: size.width / 5 * 0.1),
-                color: primaryColor,
+                color: ColorUtils.primaryColor,
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(FlutterIcons.search, color: primaryBgColor)),
+                    icon: const Icon(FlutterIcons.search, color: ColorUtils.primaryBgColor)),
               )
             ],
           ),
@@ -130,10 +130,10 @@ class SearchPage extends StatelessWidget {
                 },
                 controller: textController,
                 textInputAction: TextInputAction.done,
-                cursorColor: primaryColor,
+                cursorColor: ColorUtils.primaryColor,
                 decoration: InputDecoration(
                     filled: true,
-                    fillColor: primaryBgColor,
+                    fillColor: ColorUtils.primaryBgColor,
                     // iconColor: Colors.black,
                     prefixIconColor: Colors.black,
                     contentPadding:

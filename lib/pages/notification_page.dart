@@ -1,5 +1,5 @@
 import 'package:app_shoes__shop/models/notification_model.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:app_shoes__shop/ultilities/data.dart';
 import 'package:flutter/material.dart';
 
@@ -46,10 +46,10 @@ class NotificationPage extends StatelessWidget {
               Container(
                 width: size.width / 7,
                 padding: const EdgeInsets.only(left: 0),
-                color: primaryColor,
+                color: ColorUtils.primaryColor,
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.more_vert_rounded, color: primaryBgColor)),
+                    icon: const Icon(Icons.more_vert_rounded, color: ColorUtils.primaryBgColor)),
               )
             ],
           ),
@@ -140,7 +140,7 @@ class NotificationPage extends StatelessWidget {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: ColorUtils.primaryColor,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(15)),
                   child: Icon(

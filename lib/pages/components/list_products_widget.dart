@@ -2,7 +2,7 @@ import 'package:app_shoes__shop/controllers/cart_controller.dart';
 import 'package:app_shoes__shop/models/cart_item_model.dart';
 import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/pages/detail_page.dart';
-import 'package:app_shoes__shop/ultilities/constants.dart';
+import 'package:app_shoes__shop/ultilities/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:math' as math;
@@ -178,7 +178,7 @@ class _ListProductsWidgetState extends State<ListProductsWidget> {
                                           height: size.width / 9.5,
                                           decoration: BoxDecoration(
                                               color:
-                                                  primaryColor.withOpacity(0.9),
+                                                  ColorUtils.primaryColor.withOpacity(0.9),
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                         )),
