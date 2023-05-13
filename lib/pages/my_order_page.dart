@@ -51,7 +51,8 @@ class _MyOrderPageState extends State<MyOrderPage> {
                   color: ColorUtils.primaryColor,
                   child: IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.tune, color: ColorUtils.primaryBgColor)),
+                      icon: const Icon(Icons.tune,
+                          color: ColorUtils.primaryBgColor)),
                 )
               ],
             ),
@@ -99,55 +100,73 @@ class _MyOrderPageState extends State<MyOrderPage> {
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<ProductModel>>(
-              future: fetchProducts(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final products = snapshot.data!;
+              child: TabBarView(
+            children: [
+              // first tab bar view widget
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: FutureBuilder<List<ProductModel>>(
+                  future: fetchProductsInOrder(0),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final products = snapshot.data!;
 
-                  return TabBarView(
-                    children: [
-                      // first tab bar view widget
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            children: List.generate(2, (index) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                child: OrderCardWidget(
-                                    product: products[index], isActive: true),
-                              );
-                            })),
-                      ),
+                      return ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: List.generate(
+                          products.length,
+                          (index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                              child: OrderCardWidget(
+                                  product: products[index], isActive: true),
+                            );
+                          },
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text('Failed to fetch products');
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
 
-                      // second tab bar view widget
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            children: List.generate(3, (index) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                child: OrderCardWidget(
-                                  product: products[index],
-                                  isActive: false,
-                                ),
-                              );
-                            })),
-                      ),
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text('Failed to fetch products');
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
-          ),
+              // second tab bar view widget
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: FutureBuilder<List<ProductModel>>(
+                  future: fetchProductsInOrder(1),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final products = snapshot.data!;
+
+                      return ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: List.generate(
+                          products.length,
+                          (index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                              child: OrderCardWidget(
+                                  product: products[index], isActive: false),
+                            );
+                          },
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text('Failed to fetch products');
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ),
+            ],
+          )),
         ],
       ),
     );

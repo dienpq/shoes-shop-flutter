@@ -1,5 +1,6 @@
 import 'package:app_shoes__shop/controllers/cart_controller.dart';
 import 'package:app_shoes__shop/models/cart_item_model.dart';
+import 'package:app_shoes__shop/models/product_model.dart';
 import 'package:app_shoes__shop/models/user_model.dart';
 import 'package:app_shoes__shop/ultilities/action.dart';
 import 'package:app_shoes__shop/ultilities/color.dart';
@@ -284,8 +285,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
         decoration: BoxDecoration(
             color: ColorUtils.primaryColor.withOpacity(0.2),
             border: Border(
-              bottom:
-                  BorderSide(width: 0.5, color: ColorUtils.primaryColor.withOpacity(0.2)),
+              bottom: BorderSide(
+                  width: 0.5, color: ColorUtils.primaryColor.withOpacity(0.2)),
             )),
         child: Padding(
           padding:
@@ -481,8 +482,25 @@ class _CheckOutPageState extends State<CheckOutPage> {
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: GestureDetector(
-        onTap: () {
-          showDialogSubmit();
+        onTap: () async {
+          // print(cartController.itemsCartTest[0].product.name);
+          final products = cartController.itemsCartTest.map((item) {
+            return ProductModel(
+              id: item.product.id,
+              name: item.product.name,
+              imagePath: item.product.imagePath,
+              brand: item.product.brand,
+              desc: item.product.desc,
+              color: item.product.color,
+              soldNum: item.product.soldNum,
+              discount: item.product.discount,
+              price: item.product.price,
+            );
+          }).toList();
+          final check = await createOrder(products);
+          if (check) {
+            showDialogSubmit();
+          }
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
@@ -603,8 +621,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           int id = cartController.itemsCartTest.indexOf(item);
                           cartController.itemsCartTest[id] = temporaryCartItem;
                         },
-                        child:
-                            const Icon(Icons.add_circle_outline, color: ColorUtils.primaryColor))
+                        child: const Icon(Icons.add_circle_outline,
+                            color: ColorUtils.primaryColor))
                   ],
                 ),
                 const Row(
@@ -619,7 +637,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     ),
                     Text(
                       "Decreasing Price",
-                      style: TextStyle(color: ColorUtils.yellowColor, fontSize: 12),
+                      style: TextStyle(
+                          color: ColorUtils.yellowColor, fontSize: 12),
                     )
                   ],
                 )

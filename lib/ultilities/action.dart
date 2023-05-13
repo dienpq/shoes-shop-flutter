@@ -52,6 +52,83 @@ Future<List<ProductModel>> fetchProducts() async {
   }
 }
 
+Future<List<ProductModel>> fetchProductsInOrder(int status) async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+  final response = await http.get(Uri.parse(
+      'http://$host:3000/api/orders/$userId/products?status=$status'));
+
+  if (response.statusCode == 200) {
+    final products = json.decode(response.body) as List<dynamic>;
+
+    return products.map((item) {
+      return ProductModel(
+        id: item['product']['_id'],
+        name: item['product']['name'],
+        imagePath: item['product']['imagePath'],
+        brand: item['product']['brand'],
+        desc: item['product']['desc'],
+        color: item['product']['color'],
+        soldNum: item['product']['soldNum'],
+        discount: item['product']['discount'],
+        price: item['product']['price'].toDouble(),
+      );
+    }).toList();
+  } else {
+    throw Exception('Failed to fetch products');
+  }
+}
+
+Future<int> getTotalOrders() async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+  final url = Uri.parse('http://$host:3000/api/orders/$userId/total');
+
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    final totalOrders = data['totalOrders'] as int;
+    return totalOrders;
+  } else {
+    throw Exception('Failed to get total orders');
+  }
+}
+
+Future<bool> createOrder(List<ProductModel> products) async {
+  String? token = await getToken();
+  String? userId = getUserIdFromToken(token!);
+
+  const url = 'http://$host:3000/api/orders';
+  final headers = {'Content-Type': 'application/json'};
+  
+  final productList = products.map((product) => {
+    'productId': product.id,
+    'amount': 1,
+  }).toList();
+
+  final body = jsonEncode({
+    'userId': userId,
+    'products': productList,
+    'status': 0,
+  });
+
+  try {
+    final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      // ignore: avoid_print
+      print('Failed to create order. Status code: ${response.statusCode}');
+      return false;
+    }
+  } catch (e) {
+    // ignore: avoid_print
+    print('Error creating order: $e');
+    return false;
+  }
+}
+
 Future<CartModel> fetchCart() async {
   String? token = await getToken();
   String? userId = getUserIdFromToken(token!);
@@ -154,8 +231,6 @@ Future<void> decreaseProductAmountInCart(String productId) async {
     throw Exception('Error: $error');
   }
 }
-
-
 
 Future<UserModel> fetchUser() async {
   String? token = await getToken();

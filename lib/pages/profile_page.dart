@@ -136,11 +136,26 @@ class ProfilePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                           color: Colors.black.withOpacity(0.7))),
-                  Text("50",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.black.withOpacity(0.8))),
+                  FutureBuilder<int>(
+                    future: getTotalOrders(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return const Text('Failed to get total orders');
+                      } else {
+                        final totalOrders = snapshot.data ?? 0;
+                        return Text(
+                          totalOrders.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.black.withOpacity(0.8),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
             ),

@@ -51,4 +51,18 @@ class ProductModel {
   String getInfo() {
     return "$id - $name - $price";
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'imagePath': imagePath,
+      'desc': desc,
+      'brand': brand,
+      'color': color,
+      'soldNum': soldNum,
+      'discount': discount,
+      'price': price,
+    };
+  }
 }
