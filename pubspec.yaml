@@ -42,9 +42,9 @@ dependencies:
   page_transition: "^2.0.9"
   flutter_local_notifications: ^9.8.0+1
   fluttertoast: ^8.0.9
-  http: ^0.13.4
-  shared_preferences: ^2.0.6
-  jwt_decoder:
+  http: ^0.13.6
+  shared_preferences: ^2.1.1
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:

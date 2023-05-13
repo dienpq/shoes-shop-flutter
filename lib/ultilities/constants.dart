@@ -55,4 +55,4 @@ Color getColorFromHex(String hexColor) {
 }
 
 // Host
-const String host = 'localhost';
+const String host = '192.168.16.102';

@@ -44,7 +44,7 @@ Future<List<ProductModel>> fetchProducts() async {
         color: product['color'],
         soldNum: product['soldNum'],
         discount: product['discount'],
-        price: product['price'],
+        price: product['price'].toDouble(),
       );
     }).toList();
   } else {
@@ -73,7 +73,7 @@ Future<CartModel> fetchCart() async {
         color: jsonItem['product']['color'],
         soldNum: jsonItem['product']['soldNum'],
         discount: jsonItem['product']['discount'],
-        price: jsonItem['product']['price'],
+        price: jsonItem['product']['price'].toDouble(),
       );
 
       final amount = jsonItem['amount'];
